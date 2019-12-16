@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Engine</title>
+</head>
+
+<body style="text-align:center">
+<h1>Search Engine for Information Retrieval</h1>
+<div id="Layer1" class="wrapper">
+    {% if message %} {{message}} {% endif %}
+    <form method="POST">
+        <label>
+            {% if info %}
+            <input name="keyword"
+                type="text"
+                class="speech-input"
+                autocomplete="off"
+                placeholder="请输入要查询的关键字"
+                value="{{ info.query }}">
+            </input>
+            {% else %}
+            <input name="keyword"
+                type="text"
+                class="speech-input"
+                autocomplete="off"
+                placeholder="请输入要查询的关键字">
+            </input>
+            {% endif %}
+        </label>
+        <br/>
+        <br/>
+        <label>
+            {% if info and info.window != '' %}
+            <input name="window" type="text" class="speech-input" autocomplete="off" placeholder="请输入窗口大小" value="{{ info.window }}"/>
+            {% else %}
+            <input name="window" type="text" class="speech-input" autocomplete="off" placeholder="请输入窗口大小"/>
+            {% endif %}
+        </label>
+        <br/>
+        <br/>
+        <div>
+        <table style="margin:auto">
+            {% for i in range(4) %}
+            <tr>
+                {% for j in range(7) %}
+                {% set current_pos = pos_info.pos[i * 7 + j] %}
+                    {% if pos_info.pos2show[current_pos] %}
+                    <td><input name="poses" type='checkbox'
+                        value={{current_pos}} checked>
+                        {{pos_info.pos2chin[current_pos]}}</input></td>
+                    {% else %}
+                    <td><input name="poses" type='checkbox'
+                        value={{current_pos}}>
+                        {{pos_info.pos2chin[current_pos]}}</input></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        </div>
+        <br/>
+        <div>
+            <label>
+                <input type="submit" name="Submit" class="searchbutton" value="搜索" />
+            </label>
+        </div>
+    </form>
+</div>
+    {% if ans %}
+    <table style="margin:auto">
+        <tr>
+            <th>Word</th>
+            <th>Score</th>
+            <th>Pos</th>
+        </tr>
+        {% for answer in ans %}
+        <tr>
+            <td>{{ answer.words }}</td>
+            <td>{{ answer.tf }}</td>
+            <td>{{ answer.pos }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+</body>
+</html>
+
+<style>
+    .searchbutton{
+        -webkit-appearance : none;
+        height: 30px;
+        width: 100px;
+        border-width: 0px; /* 边框宽度 */
+        border-radius: 3px; /* 边框半径 */
+        background: #F03D33; /* 背景颜色 */
+        cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+        outline: none; /* 不显示轮廓线 */
+        color: white; /* 字体颜色 */
+        font-size: 17px; /* 字体大小 */
+    }
+    .wrapper{
+        /* position: fixed; */
+        left: 50%;
+        top: 20%;
+        /* width: 700px; */
+        height: 280px;
+        /* margin-left: -250px;
+        margin-top: -30px; */
+    }
+    .speech-input{
+        height: 30px;
+        width: 550px;
+        font-size:17px;
+        margin-top: 0px;
+        /* background-image: url(pic/sousuo.png); */
+        background-repeat: no-repeat;
+        background-size: 25px;
+
+        background-position: 2px 1.5px;
+
+        padding:0 0 0 10px;
+
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+
+    input:focus{
+        outline:none;
+        border-color: #F03D33;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(240,61,51,.6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(240,61,51,.6)
+    }
+</style>

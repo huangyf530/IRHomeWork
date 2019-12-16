@@ -10,14 +10,12 @@ maps =  {"mappings": {
         }
     }
 
-query = {
+query_template = {
         "query": {
             'bool': {
-                "must":[
-                    {'match' : {"text": "牛市" }},
-                ]
+                "must":[]
             }
         }
     }
 
-files_to_handle = ['/Users/huangyf/Dataset/SogouT/Sogou0012_out']
+files_to_handle = ['/Users/huangyf/Dataset/SogouT/Sogou0012_out', '/Users/huangyf/Dataset/SogouT/Sogou0002_out']
