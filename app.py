@@ -30,7 +30,7 @@ def index(name=None):
             windowSize = 5
         keyWords = keyWord.split(' ')
         print("Query: {}".format(keyWord))
-        number, result = se.query(keyWords, size=1000)
+        number, result = se.query(keyWords, size=10000)
         print("Got {} Hits.".format(number))
         to_show = count_words(result, keyWords, windowsize=windowSize, poses_set=set(poses))
         for item in to_show:

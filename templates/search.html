@@ -70,12 +70,15 @@
     {% if ans %}
     <table style="margin:auto">
         <tr>
+            <th>Rank</th>
             <th>Word</th>
             <th>Score</th>
             <th>Pos</th>
         </tr>
-        {% for answer in ans %}
+        {% for i in range(ans|length) %}
+        {% set answer = ans[i] %}
         <tr>
+            <td>{{ i + 1 }}</td>
             <td>{{ answer.words }}</td>
             <td>{{ answer.tf }}</td>
             <td>{{ answer.pos }}</td>
