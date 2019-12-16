@@ -21,6 +21,8 @@
 
 其中项目运行流程和各个外部包的版本参看[README.md](../README.md)
 
+代码全部上传至github：https://github.com/huangyf530/IRHomeWork
+
 本次作业实现的流程如下：
 
 #### 分词和词性标注
