@@ -41,7 +41,7 @@ def init_parser():
 
 def get_words(txt):
     matchObj = re.match(r'(.+)/(.+)$', txt)
-    return matchObj.group(0)
+    return matchObj.group(1)
 
 class MyCorpus(object):
     def __init__(self, input_file_names, doc_print, max_doc=None):
@@ -121,6 +121,16 @@ def count(file_names, doc_print, min_count, max_doc=None):
             count += 1
     return count
 
+def analogy(x1, x2, y1, wv):
+    ''' Calculate x2 - x1 + y1, like Japanese - Japan + France '''
+    result = wv.most_similar(positive=[y1, x2], negative=[x1])
+    print('{} - {} + {} = {}\t Similarity is {}'.format(x2, x1, y1, result[0][0], result[0][1]))
+    return result
+
+def test(model):
+    wv = KeyedVectors.load_word2vec_format(model, binary=False)
+    print(wv.most_similar('牛市'))
+
 if __name__=='__main__':
     parser = init_parser()
     args = parser.parse_args()
@@ -129,6 +139,8 @@ if __name__=='__main__':
         wv = train(files_to_handle, args.model, args.iter, args.doc_print, args.workers, args.min_cnt, args.max_doc)
     elif args.mode == 'count':
         print("Total Word Number is {}.".format(count(files_to_handle, args.doc_print, args.min_cnt, args.max_doc)))
+    elif args.mode == 'test':
+        test(args.model)
     else:
         raise ValueError('Mode must be one of count/train')
 
