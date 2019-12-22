@@ -96,8 +96,8 @@ class callback(CallbackAny2Vec):
         if loss_now < self.best_loss:
             self.best_epoch = self.epoch
             self.best_loss = loss_now
-            if self.epoch >= 30
-            model.wv.save_word2vec_format(os.path.join(self.model_path, 'word2vec.txt'), binary=False)
+            if self.epoch >= 30:
+                model.wv.save_word2vec_format(os.path.join(self.model_path, 'word2vec.txt'), binary=False)
         self.loss_to_be_subed = loss
         self.loss.append(loss_now)
         self.epoch += 1
