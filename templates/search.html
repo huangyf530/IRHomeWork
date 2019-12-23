@@ -61,13 +61,26 @@
         </div>
         <br/>
         <div>
-            <label>
+            <label style="margin-right: 30px;">
                 <input type="submit" name="Submit" class="searchbutton" value="搜索" />
+            </label>
+            <label style="margin-left: 30px;">
+                {% if fuzzy %}
+                    <input name='fuzzy' type='checkbox' checked>关联搜索</input>
+                {% else %}
+                    <input name='fuzzy' type='checkbox'>关联搜索</input>
+                {% endif %}
             </label>
         </div>
     </form>
 </div>
+    {% if sim_words %}
+        <div style="margin: 20px; font-weight: bold; margin-top: 0px;">
+            {{ sim_words }}
+        </div>
+    {% endif %}
     {% if ans %}
+    <div>
     <table style="margin:auto">
         <tr>
             <th>Rank</th>
@@ -85,6 +98,7 @@
         </tr>
         {% endfor %}
     </table>
+    </div>
     {% endif %}
 
 </body>

@@ -9,6 +9,7 @@ from datetime import datetime
 import os
 
 MAX_DOUBLE = 1e10
+
 def str2bool(v):
     if v.lower() in ('yes', 'true', 't', 'y', '1'):
         return True
@@ -31,7 +32,7 @@ def init_parser():
     parser.add_argument('--max_doc', type=intOrNone, default=None, 
                         help='Max number of document.')
     parser.add_argument('--mode', type=str, default='train',
-                        help='The mode to instrcut code running. Must be count/train')
+                        help='The mode to instrcut code running. Must be count/train/test')
     parser.add_argument('--model', type=str, default='wordvec',
                         help='A trained word vector model path.')
     parser.add_argument('--iter', type=int, default=50,
@@ -145,8 +146,23 @@ def analogy(x1, x2, y1, wv):
     return result
 
 def test(model):
-    wv = KeyedVectors.load_word2vec_format(model, binary=False)
+    model_path = os.path.join(model, 'word2vec.txt')
+    wv = KeyedVectors.load_word2vec_format(model_path, binary=False)
     print(wv.most_similar('牛市'))
+
+def load_wordvector(model):
+    model_path = os.path.join(model, 'word2vec.txt')
+    wv = KeyedVectors.load_word2vec_format(model_path, binary=False)
+    print("Load Word vector from {}.".format(model_path))
+    return wv
+
+def get_similar_word(word, wv):
+    try:
+        candidates = wv.most_similar(word)
+        return candidates[:5]
+    except AttributeError as e:
+        print("Please Load word vector first. You can use function load_wordvector(model)")
+        return []
 
 if __name__=='__main__':
     parser = init_parser()
@@ -159,6 +175,6 @@ if __name__=='__main__':
     elif args.mode == 'test':
         test(args.model)
     else:
-        raise ValueError('Mode must be one of count/train')
+        raise ValueError('Mode must be one of count/train/test')
 
 
