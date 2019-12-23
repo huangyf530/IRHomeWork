@@ -30,7 +30,7 @@
 
 2. 加入关联搜索之后对结果的排序有了一定的影响，同样已改查询为例，启用关联搜索和不启用关联搜索的结果如下：
 
-   <img src="./step2res.pdf" alt="result" style="zoom:75%;" />
+   <img src="./step2res.png" alt="result" style="zoom:80%;" />
 
 可以看到，在不同的选项下，排名前15位的结果在内容和排序上都有着一定的区别。
 
